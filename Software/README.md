@@ -1,4 +1,8 @@
 
+
+
+
+
                                                  INSTALACIÓN DE KISMET
                                                   
  Para la instalar kismet en Linux solo es escribir los siguientes comandos en la terminal:
@@ -85,3 +89,89 @@ En nuestro caso lo que hace el reiniciar el equipo cerrando el punto de acceso d
  COMMAND:* se indica el scripts que se va a utilizar.
 En TO* se puede poner un correo para informar al administrador de que ocurrió el evento.
 
+												INSTALACIÓN DE SURICATA IOT
+												
+1.	Lista que librerías para instalar sobre SO:
+	sudo apt-get -y install libpcre3 libpcre3-dbg libpcre3-dev \
+	build-essential autoconf automake libtool libpcap-dev libnet1-dev \
+	libyaml-0-2 libyaml-dev pkg-config zlib1g zlib1g-dev libcap-ng-dev libcap-ng0 \
+	make libmagic-dev libjansson-dev
+
+	wget https://github.com/OISF/libhtp/archive/0.5.21.tar.gz
+	tar -xzvf 0.5.21.tar.gz
+	cd libhtp
+	./autogen.sh
+	./configure
+	make
+	make install
+	ldconfig
+
+2.	Descargar comprimido de Suricata:
+	git clone https://github.com/decanio/suricata-IoT.git
+
+3.	Entrar a la carpeta de suricata:
+	cd suricata-3.1
+
+4.	Instalar:
+	./autogen.sh
+	./configure && make && make install-full
+	ldconfig
+
+5.	Copiar archivos de configuración:
+	mkdir /var/log/suricata
+	mkdir /etc/suricata
+	mkdir /etc/suricata/rules
+	cp classification.config /etc/suricata
+	cp reference.config /etc/suricata
+	cp suricata.yaml /etc/suricata
+
+6.	Bajar reglas (por defecto se bajan por Oinkmaster):
+	apt-get install oinkmaster
+	editar el archivo oinkmaster.conf: /etc/oinkmaster.conf
+	adicionar línea: 
+	url = http://rules.emergingthreats.net/open/suricata/emerging.rules.tar.gz
+	comando: oinkmaster -C /etc/oinkmaster.conf -o /etc/suricata/rules
+
+7.	Correr Suricata:
+	suricata -c /etc/suricata/suricata.yaml -i eth0 --init-errors-fatal
+	
+	Archivo de configuración suricata.yaml
+
+El archivo de configuración de Suricata IoT es el archivo llamado suricata.yaml, este contiene los parámetros para correr el suricata, las partes principales de este archivo están en la configuración de la red, en donde se identifica la red local y la red externa, y las reglas que se quieren aplicar.
+
+
+Archivo plugin para OSSIM.
+
+El archivo de plugin para OSSIM es el archivo llamado SuricataIoT.cfg, este archivo contiene las especificaciones de la expresión regular que permite al OSSIM entender los eventos generados por esta herramienta.
+
+
+
+												INSTALACIÓN DE OPENVAS
+
+
+
+
+
+
+												DIRECTIVAS DE CORRELACIÓN
+
+La primera directiva trata de tener dos eventos, unos de openvas y otro de suricata, el primer evento es la vulnerabilidad(CVE-2012-5964,ST URN ServiceType Buffer Overflow) de la librería libupnp que es vulnerable a un ataque de denegación de servicio por medio de un mensaje del protocolo ssdp en donde el campo de service type de ese mensaje tiene un valor muy grande, y el segundo evento trata de un evento de suricata en donde identificar tráfico malicioso de un mensaje ssdp hacia el dispositivo upnp en donde se evidencia ciertas palabras claves que dan como positivo el ataque de denegación de servicio del dispositivo. El SIEM como respuesta a estos eventos realizará una actualización de la librería libupnp.
+
+Esta directiva se puede probar en un dispositivo IoT uPnP que tenga la librería libupnp en su versión 1.3.1, en donde el dispositivo centinela con ayuda de Openvas detecta el uso de esta librería vulnerable, luego con el monitoreo constante de la red de la herramienta de Suricata IoT, se debe detectar tráfico malicioso, en donde un mensaje del protocolo SSPD (En un paquete UDP) con el campo de “ServiceType” presenta un tamaño muy grande. 
+
+Una vez la herramienta OSSIM recibe los eventos generados por las herramientas Openasvas y Suricata IoT, este debido a su configuración de la directiva de correlación genera una respuesta ejecutado un script en el dispositivo centinela, que a su vez ejecuta un script que actualiza la librería vulnerable del dispositivo que está siendo atacado.
+
+La segunda directiva trata de la denegación de servicio de un dispositivo que tenga un servicio web disponible, basado en el uso de un servicio de Nginx. El modo de operar es el mismo que el anterior, primero se tiene la vulnerabilidad (CVE-2013-2028, Exploit Specific) del dispositivo que dice que la versión del servicio Nginx es vulnerable a ataques de denegación de servicio, el segundo evento es la evidencia de tráfico malicioso que da a entender que se está explotando la vulnerabilidad ya mencionada mediante una petición al dispositivo con unos campos específicos. El SIEM como respuestas a estos eventos se genera la instalación de nginx.
+
+La segunda directiva se prueba de tal forma que un dispositivo IoT use la librería Ngix en su versión 1.3.9 hasta la versión 1.4.0, lo cual la herramienta de Openvas detecta el uso de esta librería vulnerable, luego con el monitoreo constante de la red con la herramienta de Suricata IoT, se detecta una petición HTTP en donde el paquete tiene como encabezado “Transfer-Encoding: chunked”.
+
+Una vez la herramienta OSSIM recibe los eventos generados por las herramientas Openasvas y Suricata IoT, este debido a su configuración de la directiva de correlación genera una respuesta ejecutado un script en el dispositivo centinela, que a su vez ejecuta un script que actualiza la librería vulnerable del dispositivo que está siendo atacado.
+
+
+La tercera directiva de correlación se basa en  una vulnerabilidad(CVE: CVE-2017-13077) sobre el protocolo WPA(Acceso protegido Wi-Fi) analizada por  OpenVas (la cual se encuentra en el sistema operativo DEBIAN  con  versión 2.3-1) y la alerta de kismet llamada BCASTDISCON la cual es lanzada cuando detecta que se está produciendo un ataque de desasociación de un cliente de la red generando una denegación de servicio.La relación que existe entre una y otras, es que la vulnerabilidad encontrada en WPA, es explotada por medio de un ataque de desasociación (desasocia a los clientes de red del protocolo WPA) de un cliente o varios que se encuentren en la  red y este es detectado por kismet, generando un evento en el SIEM e inmediatamente activa esta directiva y genera como respuesta el reinicio del sistema con el de desconectar al atacante del punto de acceso y envía un correo dueño del sistema para informarle de la situación.
+
+Para probar esta directiva, se tiene que primero se identifica la vulnerabilidad en un dispositivo IoT relacionada a el protocolo WPA y WPS2, con ayuda de la herramienta de Openvas se detecta esta vulnerabilidad del dispositivo, para luego dejar que Kismet detecte un ataque de desasociacion del dispositivo de la red.
+
+Para el caso de Kismet, esta herramienta identifica este ataque con la alerta llamada “BCASTDISCON”, que nos indica que se está realizando un ataque que aprovecha la vulnerabilidad de dispositivo representada en el CVE-2017-13077.
+
+Una vez la herramienta OSSIM recibe los eventos generados por las herramientas Openasvas y Suricata IoT, este debido a su configuración de la directiva de correlación genera una respuesta ejecutado un script en el dispositivo centinela, que a su vez ejecuta un script que reinicia el dispositivo atacado.
