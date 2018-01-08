@@ -89,7 +89,7 @@ En nuestro caso lo que hace el reiniciar el equipo cerrando el punto de acceso d
  COMMAND:* se indica el scripts que se va a utilizar.
 En TO* se puede poner un correo para informar al administrador de que ocurrió el evento.
 
-												INSTALACIÓN DE SURICATA IOT
+											INSTALACIÓN DE SURICATA IOT
 												
 1.	Lista que librerías para instalar sobre SO:
 	sudo apt-get -y install libpcre3 libpcre3-dbg libpcre3-dev \
@@ -146,14 +146,14 @@ El archivo de plugin para OSSIM es el archivo llamado SuricataIoT.cfg, este arch
 
 
 
-												INSTALACIÓN DE OPENVAS
+											INSTALACIÓN DE OPENVAS
 
 
 
 
 
 
-												DIRECTIVAS DE CORRELACIÓN
+											DIRECTIVAS DE CORRELACIÓN
 
 La primera directiva trata de tener dos eventos, unos de openvas y otro de suricata, el primer evento es la vulnerabilidad(CVE-2012-5964,ST URN ServiceType Buffer Overflow) de la librería libupnp que es vulnerable a un ataque de denegación de servicio por medio de un mensaje del protocolo ssdp en donde el campo de service type de ese mensaje tiene un valor muy grande, y el segundo evento trata de un evento de suricata en donde identificar tráfico malicioso de un mensaje ssdp hacia el dispositivo upnp en donde se evidencia ciertas palabras claves que dan como positivo el ataque de denegación de servicio del dispositivo. El SIEM como respuesta a estos eventos realizará una actualización de la librería libupnp.
 
