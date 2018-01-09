@@ -148,6 +148,25 @@ El archivo de plugin para OSSIM es el archivo llamado SuricataIoT.cfg, este arch
 
 						INSTALACIÃ“N DE OPENVAS
 
+Para la instalación del OpenVas deberemos realizar los siguientes paso uno a uno.
+
+1. apt-get update
+2. apt-get dist-upgrade
+3. apt-get install openvas = Este paso podría tomar bastante tiempo.
+4. openvas-setup = Retornada la creación del usuario “admin” con    su correspondiente clave.
+5. netstat -antp = verificar el servicio
+6. openvas-start
+7. openvas-check-setup = Retornara un mensaje “OpenVas Installation OK”.
+8. Abrir esta dirección url https://127.0.0.1:9392 = Ingresar el openvas con el usuario “admin” anteriormente mencionado y cambiar la clave.
+
+Para correr Codigo OMP4-OpenVas
+
+Utilizando contrab creamos un task en Linux para ejecutar el código de la siguiente forma "contrab -e"
+Luego escirbimos el comando estableciento cuando y a que hora debera ejecturalo en este sera todos los dias a las 3 de la mañana con el siguiente codigo "0 3 * * * "path del codigo" java -jar OPM4-OpenVas.jar"
+
+Archivo Plugin para OSSIM
+El archivo de plugin para OSSIM es el archivo llamado openVasPlugin.cfg, este archivo contiene las especificaciones de la expresiÃ³n regular que permite al OSSIM entender los eventos generados por esta herramienta eviados por el codigo OMP4-OpenVas.
+
 
 
 
