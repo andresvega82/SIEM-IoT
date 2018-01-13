@@ -3,7 +3,7 @@
 
 
 
-                                                 INSTALACIÃ“N DE KISMET
+                                                 #INSTALACIÃ“N DE KISMET
                                                   
  Para la instalar kismet en Linux solo es escribir los siguientes comandos en la terminal:
 -	Sudo apt-get update
@@ -36,7 +36,7 @@ Y kismet empieza a monitorer las redes WIFI.
 ![Imagen 3](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/3.png)
 
 
-CONFIGURACIÃ“N KISMET EN OSSIM
+#CONFIGURACIÃ“N KISMET EN OSSIM
 
 Para cuando Kismet genere la alerta y la pueda enviar a OSSIM se debe tener corriendo el programa que estÃ¡ en el siguiente Github https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Kismet
 en el archivo Syslogkismet.zip,  el cual envÃ­a el syslog al OSSIM para que este pueda recibir el evento.
@@ -63,7 +63,7 @@ La cual harÃ¡ que el OSSIM reciba y muestre el evento de la siguiente forma:
 
 ![Imagen 7](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/7.png)
 
-PRUBAR KISMET
+#PROBAR KISMET
 
 Generar una alerta en Kismet:
 En este escenario vamos a generar la alerte BCASTDISCON la cual se dispara cuando detecta que hay un ataque de desasociaciÃ³n de la red de un cliente o de varios, causando una posible denegaciÃ³n de servicio.
