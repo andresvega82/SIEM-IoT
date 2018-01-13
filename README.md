@@ -1,4 +1,4 @@
-# SEGURIDAD PARA IOT, UNA SOLUCIÓN PARA LA GESTIÓN DE EVENTOS DE SEGURIDAD EN ARQUITECTURAS DE INTERNET DE LAS COSAS
+﻿# SEGURIDAD PARA IOT, UNA SOLUCIÓN PARA LA GESTIÓN DE EVENTOS DE SEGURIDAD EN ARQUITECTURAS DE INTERNET DE LAS COSAS
 
 Integrantes:
 * Nicolas Moreno Guataquira
@@ -11,7 +11,3 @@ Director:
 
  
 
-### 
-### Arquitectura centinela IoT
-
-![Arquitectura Centinela IoT](https://github.com/andresvega82/SIEM-IoT/tree/master/Documentaci%C3%B3n/Arquitectura_Centinela_IoT.jpg)
