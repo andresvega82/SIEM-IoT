@@ -166,7 +166,7 @@ En esta parte del archivo de configuración suricata.yaml sirve para configurar 
 
 En este punto del archivo de configuración suricata.yaml permite escoger las reglas que van a ser revisadas por el software Suricata, en este punto se debe ver que cada archivo de reglas tiene un esquema de nombre_del_archivo.rules, en donde el nombre describe el paquete de reglas de se evalúan. Por otro lado, también se configura la ubicación en donde se encuentran las reglas, esta configuración se ve en la asignación de la variable “default-rule-path”.
 
-![Imagen 37](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/SurEn este punto del archivo de configuración suricata.yaml permite escoger las reglas que van a ser revisadas por el software Suricata, en este punto se debe ver que cada archivo de reglas tiene un esquema de nombre_del_archivo.rules, en donde el nombre describe el paquete de reglas de se evalúan. Por otro lado, también se configura la ubicación en donde se encuentran las reglas, esta configuración se ve en la asignación de la variable “default-rule-path”.icata/05.png)
+![Imagen 37](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata/05.png)
 
 Por último, en esta parte del archivo de configuración suricata.yaml permite configurar las diferentes salidas de reportes de alertas o avisos que emite el sistema, como muestra la imagen permite configurar un archivo de estadísticas, al colocar el campo de “enables” en “yes” se toma que se quiere un archivo de reporte de estadísticas cada cierto tiempo definido en la variable “Interval”. Todos estos archivos de reportes se pueden consultar en la ruta colocada en la variable de “default-log-dir”.
 
