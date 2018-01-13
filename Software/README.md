@@ -117,7 +117,7 @@ make libmagic-dev libjansson-dev
 	make install
 	ldconfig
 
-![Imagen 17](https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Suricata%20IoT/01.png)
+![Imagen 17](https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Suricata/01.png)
 
 2.	Descargar comprimido de Suricata:
 	git clone https://github.com/decanio/suricata-IoT.git
@@ -150,15 +150,15 @@ make libmagic-dev libjansson-dev
 	
 	Archivo de configuración suricata.yaml
     
-    ![Imagen 18](https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Suricata%20IoT/02.png)
+    ![Imagen 18](https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Suricata/02.png)
 
 El archivo de configuración de Suricata IoT es el archivo llamado suricata.yaml, este contiene los parámetros para correr el suricata, las partes principales de este archivo están en la configuración de la red, en donde se identifica la red local y la red externa, y las reglas que se quieren aplicar.
 
-![Imagen 19](https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Suricata%20IoT/03.png)
+![Imagen 19](https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Suricata/03.png)
 
-![Imagen 20](https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Suricata%20IoT/04.png)
+![Imagen 20](https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Suricata/04.png)
 
-![Imagen 21](https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Suricata%20IoT/05.png)
+![Imagen 21](https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Suricata/05.png)
 Archivo plugin para OSSIM.
 
 El archivo de plugin para OSSIM es el archivo llamado SuricataIoT.cfg, este archivo contiene las especificaciones de la expresión regular que permite al OSSIM entender los eventos generados por esta herramienta.
@@ -197,6 +197,7 @@ El archivo de plugin para OSSIM es el archivo llamado openVasPlugin.cfg, este ar
 
 
 						DIRECTIVAS DE CORRELACIÓN
+#### Directiva de Correlación No.1
 
 La primera directiva trata de tener dos eventos, unos de openvas y otro de suricata, el primer evento es la vulnerabilidad(CVE-2012-5964,ST URN ServiceType Buffer Overflow) de la librería libupnp que es vulnerable a un ataque de denegación de servicio por medio de un mensaje del protocolo ssdp en donde el campo de service type de ese mensaje tiene un valor muy grande, y el segundo evento trata de un evento de suricata en donde identificar tráfico malicioso de un mensaje ssdp hacia el dispositivo upnp en donde se evidencia ciertas palabras claves que dan como positivo el ataque de denegación de servicio del dispositivo. El SIEM como respuesta a estos eventos realizará una actualización de la librería libupnp.
 
@@ -204,14 +205,27 @@ Esta directiva se puede probar en un dispositivo IoT uPnP que tenga la librería
 
 Una vez la herramienta OSSIM recibe los eventos generados por las herramientas Openasvas y Suricata IoT, este debido a su configuración de la directiva de correlación genera una respuesta ejecutado un script en el dispositivo centinela, que a su vez ejecuta un script que actualiza la librería vulnerable del dispositivo que está siendo atacado.
 
-La segunda directiva trata de la denegación de servicio de un dispositivo que tenga un servicio web disponible, basado en el uso de un servicio de Nginx. El modo de operar es el mismo que el anterior, primero se tiene la vulnerabilidad (CVE-2013-2028, Exploit Specific) del dispositivo que dice que la versión del servicio Nginx es vulnerable a ataques de denegación de servicio, el segundo evento es la evidencia de tráfico malicioso que da a entender que se está explotando la vulnerabilidad ya mencionada mediante una petición al dispositivo con unos campos específicos. El SIEM como respuestas a estos eventos se genera la instalación de nginx.
+El orden de la ejecución de esta directiva queda de esta manera:
 
+1.	El dispositivo centinela detecta la vulnerabilidad asociada con el código de CVE-2012-5964.
+2.	El dispositivo centinela detecta tráfico malicioso y lo envía a la plataforma de OSSIM.
+3.	La plataforma OSSIM detecta el ataque y genera una respuesta de contingencia al ataque, para este caso se actualiza la librería libupnp del dispositivo atacado.
+4.	La segunda directiva trata de la denegación de servicio de un dispositivo que tenga un servicio web disponible, basado en el uso de un servicio de Nginx. El modo de operar es el mismo que el anterior, primero se tiene la vulnerabilidad (CVE-2013-2028, Exploit Specific) del dispositivo que dice que la versión del servicio Nginx es vulnerable a ataques de denegación de servicio, el segundo evento es la evidencia de tráfico malicioso que da a entender que se está explotando la vulnerabilidad ya mencionada mediante una petición al dispositivo con unos campos específicos. El SIEM como respuestas a estos eventos se genera la instalación de nginx.
+
+#### Directiva de Correlación No.2
 La segunda directiva se prueba de tal forma que un dispositivo IoT use la librería Ngix en su versión 1.3.9 hasta la versión 1.4.0, lo cual la herramienta de Openvas detecta el uso de esta librería vulnerable, luego con el monitoreo constante de la red con la herramienta de Suricata IoT, se detecta una petición HTTP en donde el paquete tiene como encabezado “Transfer-Encoding: chunked”.
 
 Una vez la herramienta OSSIM recibe los eventos generados por las herramientas Openasvas y Suricata IoT, este debido a su configuración de la directiva de correlación genera una respuesta ejecutado un script en el dispositivo centinela, que a su vez ejecuta un script que actualiza la librería vulnerable del dispositivo que está siendo atacado.
 
+El orden de la ejecución de esta directiva queda de esta manera:
 
-La tercera directiva de correlación se basa en  una vulnerabilidad(CVE: CVE-2017-13077) sobre el protocolo WPA(Acceso protegido Wi-Fi) analizada por  OpenVas (la cual se encuentra en el sistema operativo DEBIAN  con  versión 2.3-1) y la alerta de kismet llamada BCASTDISCON la cual es lanzada cuando detecta que se está produciendo un ataque de desasociación de un cliente de la red generando una denegación de servicio. La relación que existe entre una y otras, es que la vulnerabilidad encontrada en WPA, es explotada por medio de un ataque de desasociación (desasocia a los clientes de red del protocolo WPA) de un cliente o varios que se encuentren en la  red y este es detectado por kismet, generando un evento en el SIEM e inmediatamente activa esta directiva y genera como respuesta el reinicio del sistema con el de desconectar al atacante del punto de acceso y envía un correo dueño del sistema para informarle de la situación.
+1.	El dispositivo centinela detecta la vulnerabilidad asociada con el código de CVE-2012-5964.
+2.	El dispositivo centinela detecta tráfico malicioso y lo envía a la plataforma de OSSIM.
+3.	La plataforma OSSIM detecta el ataque y genera una respuesta de contingencia al ataque, para este caso se actualiza la librería libupnp del dispositivo atacado.
+
+#### Directiva de Correlación No.3
+
+La tercera directiva de correlación se basa en  una vulnerabilidad(CVE: CVE-2017-13077) sobre el protocolo WPA(Acceso protegido Wi-Fi) analizada por  OpenVas (la cual se encuentra en el sistema operativo DEBIAN  con  versión 2.3-1) y la alerta de kismet llamada BCASTDISCON la cual es lanzada cuando detecta que se está produciendo un ataque de desasociación de un cliente de la red generando una denegación de servicio.La relación que existe entre una y otras, es que la vulnerabilidad encontrada en WPA, es explotada por medio de un ataque de desasociación (desasocia a los clientes de red del protocolo WPA) de un cliente o varios que se encuentren en la  red y este es detectado por kismet, generando un evento en el SIEM e inmediatamente activa esta directiva y genera como respuesta el reinicio del sistema con el de desconectar al atacante del punto de acceso y envía un correo dueño del sistema para informarle de la situación.
 
 Para probar esta directiva, se tiene que primero se identifica la vulnerabilidad en un dispositivo IoT relacionada a el protocolo WPA y WPS2, con ayuda de la herramienta de Openvas se detecta esta vulnerabilidad del dispositivo, para luego dejar que Kismet detecte un ataque de desasociacion del dispositivo de la red.
 
@@ -219,3 +233,13 @@ Para el caso de Kismet, esta herramienta identifica este ataque con la alerta ll
 
 Una vez la herramienta OSSIM recibe los eventos generados por las herramientas Openasvas y Suricata IoT, este debido a su configuración de la directiva de correlación genera una respuesta ejecutado un script en el dispositivo centinela, que a su vez ejecuta un script que reinicia el dispositivo atacado.
 
+El orden de la ejecución de esta directiva queda de esta manera:
+
+1.	En este escenario vamos a generar la alerte BCASTDISCON la cual se dispara cuando detecta que hay un ataque de desasociación de la red de un cliente o de varios, causando una posible denegación de servicio. 
+Debemos tener el Kismet corriendo: 
+Comando : Kismet
+
+2.	Para generar el ataque vamos a utilizar la herramienta aireplay-ng, en nuestro caso vamos a desconectar a todos los clientes conectados a la red: 
+Escribimos el siguiente comando: - aireplay-ng –deauth 0 –a < BSSID> wlan1
+3.	Kismet detecta el ataque sobre el dispositivo.
+4.	OSSIM detecta el ataque sobre el dispositivo y genera la respuesta activa, la cual es reiniciar el dispositivo IoT.
