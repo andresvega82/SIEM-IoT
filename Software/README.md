@@ -116,7 +116,7 @@ make libmagic-dev libjansson-dev
 	make
 	make install
 	ldconfig
-![Imagen 33](https://github.com/andresvega82/SIEM-IoT/blob/master/Documentacion/Arquitectura_Centinela_IoT.jpg)
+![Imagen 33](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata/01.png)
 ![Imagen 17](https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Suricata/01.png)
 
 2.	Descargar comprimido de Suricata:
