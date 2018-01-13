@@ -150,10 +150,12 @@ make libmagic-dev libjansson-dev
 7.	Correr Suricata:
 	suricata -c /etc/suricata/suricata.yaml -i eth0 --init-errors-fatal
 	
-	Archivo de configuración suricata.yaml
+	
     
 
 ![Imagen 34](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata/02.png)
+
+#### Archivo de configuración suricata.yaml
 
 El archivo de configuración de Suricata IoT es el archivo llamado suricata.yaml, este contiene los parámetros para correr el suricata, las partes principales de este archivo están en la configuración de la red, en donde se identifica la red local y la red externa, y las reglas que se quieren aplicar.
 
@@ -170,9 +172,11 @@ En este punto del archivo de configuración suricata.yaml permite escoger las re
 
 Por último, en esta parte del archivo de configuración suricata.yaml permite configurar las diferentes salidas de reportes de alertas o avisos que emite el sistema, como muestra la imagen permite configurar un archivo de estadísticas, al colocar el campo de “enables” en “yes” se toma que se quiere un archivo de reporte de estadísticas cada cierto tiempo definido en la variable “Interval”. Todos estos archivos de reportes se pueden consultar en la ruta colocada en la variable de “default-log-dir”.
 
-Archivo plugin para OSSIM.
+#### Archivo plugin para OSSIM.
 
 El archivo de plugin para OSSIM es el archivo llamado SuricataIoT.cfg, este archivo contiene las especificaciones de la expresión regular que permite al OSSIM entender los eventos generados por esta herramienta.
+
+![Imagen 38](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata/07.png)
 
 
 
