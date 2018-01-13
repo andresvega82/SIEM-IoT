@@ -224,10 +224,16 @@ El orden de la ejecución de esta directiva queda de esta manera:
 
 1.	El dispositivo centinela detecta la vulnerabilidad asociada con el código de CVE-2012-5964.
 2.	El dispositivo centinela detecta tráfico malicioso y lo envía a la plataforma de OSSIM.
+
+![Imagen 39](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata/06.png)
+
 3.	La plataforma OSSIM detecta el ataque y genera una respuesta de contingencia al ataque, para este caso se actualiza la librería libupnp del dispositivo atacado.
-4.	La segunda directiva trata de la denegación de servicio de un dispositivo que tenga un servicio web disponible, basado en el uso de un servicio de Nginx. El modo de operar es el mismo que el anterior, primero se tiene la vulnerabilidad (CVE-2013-2028, Exploit Specific) del dispositivo que dice que la versión del servicio Nginx es vulnerable a ataques de denegación de servicio, el segundo evento es la evidencia de tráfico malicioso que da a entender que se está explotando la vulnerabilidad ya mencionada mediante una petición al dispositivo con unos campos específicos. El SIEM como respuestas a estos eventos se genera la instalación de nginx.
+
+![Imagen 40](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata/08.png)
 
 #### Directiva de Correlación No.2
+La segunda directiva trata de la denegación de servicio de un dispositivo que tenga un servicio web disponible, basado en el uso de un servicio de Nginx. El modo de operar es el mismo que el anterior, primero se tiene la vulnerabilidad (CVE-2013-2028, Exploit Specific) del dispositivo que dice que la versión del servicio Nginx es vulnerable a ataques de denegación de servicio, el segundo evento es la evidencia de tráfico malicioso que da a entender que se está explotando la vulnerabilidad ya mencionada mediante una petición al dispositivo con unos campos específicos. El SIEM como respuestas a estos eventos se genera la instalación de nginx.
+
 La segunda directiva se prueba de tal forma que un dispositivo IoT use la librería Ngix en su versión 1.3.9 hasta la versión 1.4.0, lo cual la herramienta de Openvas detecta el uso de esta librería vulnerable, luego con el monitoreo constante de la red con la herramienta de Suricata IoT, se detecta una petición HTTP en donde el paquete tiene como encabezado “Transfer-Encoding: chunked”.
 
 Una vez la herramienta OSSIM recibe los eventos generados por las herramientas Openasvas y Suricata IoT, este debido a su configuración de la directiva de correlación genera una respuesta ejecutado un script en el dispositivo centinela, que a su vez ejecuta un script que actualiza la librería vulnerable del dispositivo que está siendo atacado.
@@ -237,6 +243,8 @@ El orden de la ejecución de esta directiva queda de esta manera:
 1.	El dispositivo centinela detecta la vulnerabilidad asociada con el código de CVE-2012-5964.
 2.	El dispositivo centinela detecta tráfico malicioso y lo envía a la plataforma de OSSIM.
 3.	La plataforma OSSIM detecta el ataque y genera una respuesta de contingencia al ataque, para este caso se actualiza la librería libupnp del dispositivo atacado.
+
+![Imagen 41](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Openvas/01.png)
 
 #### Directiva de Correlación No.3
 
@@ -256,5 +264,13 @@ Comando : Kismet
 
 2.	Para generar el ataque vamos a utilizar la herramienta aireplay-ng, en nuestro caso vamos a desconectar a todos los clientes conectados a la red: 
 Escribimos el siguiente comando: - aireplay-ng –deauth 0 –a < BSSID> wlan1
+
+ ![Imagen 42](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/8.png)
+
 3.	Kismet detecta el ataque sobre el dispositivo.
+
+ ![Imagen 43](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/10.png)
+
 4.	OSSIM detecta el ataque sobre el dispositivo y genera la respuesta activa, la cual es reiniciar el dispositivo IoT.
+
+ ![Imagen 44](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/11.png)
