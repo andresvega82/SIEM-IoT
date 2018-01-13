@@ -27,33 +27,33 @@ Para correr kismet ese escribe el comando:
 -	kismet
 Se abrirÃ¡ una ventana de kismet:
  
-Imagen 2.
+![Imagen 2](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/2.png)
 
 Si queremos ver la informaciÃ³n por la consola de kismet le damos click en []Show Console 
 Le damos click en Start.
 Y kismet empieza a monitorer las redes WIFI. 
  
-Imagen 3.
+![Imagen 3](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/3.png)
 
 CONFIGURACIÃ“N KISMET EN OSSIM
 Para cuando Kismet genere la alerta y la pueda enviar a OSSIM se debe tener corriendo el programa que estÃ¡ en el siguiente Github https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Kismet
 en el archivo Syslogkismet.zip,  el cual envÃ­a el syslog al OSSIM para que este pueda recibir el evento.
 En la siguiente imagen podemos ver en color amarillo el cÃ³digo donde se envÃ­a el syslog: 
  
-Imagen 4.
+![Imagen 4](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/4.png)
 **Es necesario incluir las clases:
- 
+ ![Imagen 4.1](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/4.1.png)
 **Para correr el programa se genera un .jar
 ** y se ejecuta con el conmando java -jar <el nombre del archivo >.Jar.
 
 Ya con lo anterior se envÃ­a el syslog al OSSIM , pero para indicarles que campos del syslog queremos que se vea en el evento, es necesario agregar en la plataforma de OSSIM le plugin kismetIoTPlugin.cfg, el cual se encuentra en el Github mencionado anteriormente, el cual contiene la expresiÃ³n regular:
  
-Imagen 5.
+![Imagen 5](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/5.png)
 ContinuaciÃ³n de la expresiÃ³n regular
  
-Imagen 6.
+![Imagen 6](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/6.png)
 La cual harÃ¡ que el OSSIM reciba y muestre el evento de la siguiente forma:
-Imagen 7.
+![Imagen 7](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/7.png)
 PRUBAR KISMET
 
 Generar una alerta en Kismet:
@@ -67,25 +67,26 @@ Escribimos el siguiente comando:
 *el 0(cero) indica que va a realizar el ataque indefinidamente, si queremos que solo se realice 1 vez, cambiamos el 0 por 1.
 * wlan1 es la interface de red.
 * El BSSID es el punto de acceso por el cual se va a realizar el ataque.
- Imagen 8.
+ ![Imagen 8](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/8.png)
 
 Cualquiera que se encuentre en la red para visualizar mejor estas BSSID podemos utilizar el comando: airodump-ng wlan1
 , utilizando la interface de red que tengamos en el momento.
 
 Luego le damos Enter y se empieza el ataque, se demora un poco ya que tiene que coincidir el canal(CH) del BSSID con el de la interface de red(wlan1). 
  
-Imagen 9.
+![Imagen 9](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/9.png)
 
 En la imagen anterior ponemos ver que empieza a enviar paquetes de desasociaciÃ³n por el punto que acceso que definimos y de este modo generar una denegaciÃ³n de servicio.
 
 Kismet detecta el ataque:
  
-Imagen 10.
+![Imagen 10](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/10.png)
 Informado que tipo de ataque es, por donde se estÃ¡ generando el ataque y cual la consecuencia de este.
 Cuando kismet recibe la alerta esta es reportada al OSSIM y el OSSIM por medio del siguiente script, realiza una acciÃ³n:
  
-Imagen 11.
+![Imagen 11](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/11.png)
 En nuestro caso lo que hace el reiniciar el equipo cerrando el punto de acceso del atacante. En el OSSIM se programa de la siguiente manera:
+![Imagen 12](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/12.png)
  COMMAND:* se indica el scripts que se va a utilizar.
 En TO* se puede poner un correo para informar al administrador de que ocurriÃ³ el evento.
 
