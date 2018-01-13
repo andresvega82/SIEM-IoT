@@ -41,8 +41,11 @@ en el archivo Syslogkismet.zip,  el cual envÃ­a el syslog al OSSIM para que es
 En la siguiente imagen podemos ver en color amarillo el cÃ³digo donde se envÃ­a el syslog: 
  
 ![Imagen 4](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/4.png)
+
 **Es necesario incluir las clases:
+
  ![Imagen 4.1](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/4.1.png)
+ 
 **Para correr el programa se genera un .jar
 ** y se ejecuta con el conmando java -jar <el nombre del archivo >.Jar.
 
@@ -81,12 +84,16 @@ En la imagen anterior ponemos ver que empieza a enviar paquetes de desasociaciÃ
 Kismet detecta el ataque:
  
 ![Imagen 10](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/10.png)
+
 Informado que tipo de ataque es, por donde se estÃ¡ generando el ataque y cual la consecuencia de este.
 Cuando kismet recibe la alerta esta es reportada al OSSIM y el OSSIM por medio del siguiente script, realiza una acciÃ³n:
  
 ![Imagen 11](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/11.png)
+
 En nuestro caso lo que hace el reiniciar el equipo cerrando el punto de acceso del atacante. En el OSSIM se programa de la siguiente manera:
+
 ![Imagen 12](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/12.png)
+
  COMMAND:* se indica el scripts que se va a utilizar.
 En TO* se puede poner un correo para informar al administrador de que ocurriÃ³ el evento.
 
