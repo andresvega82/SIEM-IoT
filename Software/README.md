@@ -199,6 +199,8 @@ Para la instalación del OpenVas deberemos realizar los siguientes pasos, uno a 
 
 Este codigo  fue creado con el fin de enviar todos los resultados hacia OSSIM de cada analisis realizado por OpenVAS utilizando el API de la herramienta llamada OpenVAS Management Protocol (**OMP**). 
 
+![Imagen 44](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Openvas/02.png)
+
 1. Utilizando contrab creamos un task en Linux para ejecutar el código de la siguiente forma "contrab -e"
 2. Luego escirbimos el comando estableciento cuando y a que hora debera ejecturalo en este sera todos los dias a las 3 de la mañana con el siguiente codigo "0 3 * * * "path del codigo" java -jar OPM4-OpenVas.jar"
 
