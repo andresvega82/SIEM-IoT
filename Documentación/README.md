@@ -14,4 +14,4 @@ Director:
 ### 
 ### Arquitectura centinela IoT
 
-![Arquitectura_Centinela_IoT](https://github.com/andresvega82/SIEM-IoT/tree/master/Documentaci%C3%B3n/Arquitectura_Centinela_IoT.jpg)
+![Imagen 2](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/2.png)
