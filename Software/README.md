@@ -35,7 +35,9 @@ Y kismet empieza a monitorer las redes WIFI.
  
 ![Imagen 3](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/3.png)
 
+
 CONFIGURACIÃ“N KISMET EN OSSIM
+
 Para cuando Kismet genere la alerta y la pueda enviar a OSSIM se debe tener corriendo el programa que estÃ¡ en el siguiente Github https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Kismet
 en el archivo Syslogkismet.zip,  el cual envÃ­a el syslog al OSSIM para que este pueda recibir el evento.
 En la siguiente imagen podemos ver en color amarillo el cÃ³digo donde se envÃ­a el syslog: 
@@ -52,11 +54,15 @@ En la siguiente imagen podemos ver en color amarillo el cÃ³digo donde se envÃ
 Ya con lo anterior se envÃ­a el syslog al OSSIM , pero para indicarles que campos del syslog queremos que se vea en el evento, es necesario agregar en la plataforma de OSSIM le plugin kismetIoTPlugin.cfg, el cual se encuentra en el Github mencionado anteriormente, el cual contiene la expresiÃ³n regular:
  
 ![Imagen 5](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/5.png)
+
 ContinuaciÃ³n de la expresiÃ³n regular
  
 ![Imagen 6](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/6.png)
+
 La cual harÃ¡ que el OSSIM reciba y muestre el evento de la siguiente forma:
+
 ![Imagen 7](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/7.png)
+
 PRUBAR KISMET
 
 Generar una alerta en Kismet:
@@ -70,6 +76,7 @@ Escribimos el siguiente comando:
 *el 0(cero) indica que va a realizar el ataque indefinidamente, si queremos que solo se realice 1 vez, cambiamos el 0 por 1.
 * wlan1 es la interface de red.
 * El BSSID es el punto de acceso por el cual se va a realizar el ataque.
+
  ![Imagen 8](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/8.png)
 
 Cualquiera que se encuentre en la red para visualizar mejor estas BSSID podemos utilizar el comando: airodump-ng wlan1
