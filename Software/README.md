@@ -117,7 +117,7 @@ make libmagic-dev libjansson-dev
 	make install
 	ldconfig
 
-![Imagen 17](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata IoT/01.png)
+![Imagen 17](https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Suricata%20IoT/01.png)
 
 2.	Descargar comprimido de Suricata:
 	git clone https://github.com/decanio/suricata-IoT.git
@@ -150,7 +150,7 @@ make libmagic-dev libjansson-dev
 	
 	Archivo de configuración suricata.yaml
     
-    ![Imagen 18](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata IoT/02.png)
+    ![Imagen 18](https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Suricata%20IoT/02.png)
 
 El archivo de configuración de Suricata IoT es el archivo llamado suricata.yaml, este contiene los parámetros para correr el suricata, las partes principales de este archivo están en la configuración de la red, en donde se identifica la red local y la red externa, y las reglas que se quieren aplicar.
 
