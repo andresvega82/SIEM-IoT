@@ -10,7 +10,7 @@
 -	Sudo apt-get Install kismet
 Como el IDS Kismet fue instalado en una Raspberry Pi 3, es importarte saber que la tarjeta de red de este dispositivo no se deja cambiar a modo monitor, por lo tanto fue necesario implementarle la siguiente antena USB:
 
-![imagen 1](/Kismet/1.jpg)
+![imagen 1](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/1.jpg)
  
 ConfiguraciÃ³n de la antena: Para cambiar la tarjeta a modo monitor se escriben los siguientes comandos en la consola:
 -  sudo ifconfig wlan0 down
