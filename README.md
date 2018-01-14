@@ -2,7 +2,7 @@
 
 Integrantes:
 * Nicolas Moreno Guataquira
-* Stefany Moron Castro
+* Stefany Morón Castro
 * Andres Felipe Vega Torres
 
 Director:
