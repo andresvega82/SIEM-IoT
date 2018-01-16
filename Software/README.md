@@ -1,4 +1,4 @@
-                                             INSTALACIÓN DE KISMET
+  INSTALACIÓN DE KISMET
                                                   
  Para la instalar kismet en Linux solo es escribir los siguientes comandos en la terminal:
 -	Sudo apt-get update
@@ -207,6 +207,25 @@ Este codigo  fue creado con el fin de enviar todos los resultados hacia OSSIM de
 **Archivo Plugin para OSSIM**
 
 El archivo de plugin para OSSIM es el archivo llamado openVasPlugin.cfg, este archivo contiene las especificaciones de la expresión regular que permite al OSSIM entender los eventos generados por esta herramienta eviados por el codigo OMP4-OpenVas.
+
+**La expresión regular para OSSIM es:**
+
+"([\s\S]+)(OpenVas: )(\|)(?P<vul_id>[\s\S]+)(\|)(?P<ip_address>[\s\S]+)(\|)(?P<severity>[\s\S]+)(\|)(?P<cve>[\s\S]+)"
+
+La cual inicia con un indicador "OpenVas: " que noos indica que es un mensaje de la herramienta, luego de esto vienen 4 campos distintos separados por "|" el primer campo es el id de la vulnerabilidad, segundo campo el ip de la fuente, tercer campo severidad de la vulnerabilidad y en el ultimo campo el cve asociado con la vulnerabilidad.
+
+**Codigo OpenVasOMP:**
+
+El codigo del OpenVasOMP cuenta con diversas clases java para realizar peticiones que el protocolo OMP nos permite para interactuar con OpenVas en este caso estamos utilizando consultas xml desde el codigo para extrar los resultados y ser enviados al OSSIM
+
+**Prueba OpenVas:**
+
+Una vez que hemos iniciado sesion como administradores (como se dice en el manual de instalación) nos dirigiremos a targets y alli creamos uno nuevo con la ip que deseemos escanear mientras se encuntre en la misma red que el OpenVas, seguido de esto en task, crearemos un nuevo task apuntando al target anteriormente creado y le damos start, si funciona correctamente el debera iniciar una carga porcentual que tardara un tiempo dependiendo que tan invasivo sera el escaneo, al final de esta carga podremos ver todas las vulnerabilidades encontradas en el target, clasificadas en 4 severidades diferentes (Informativas, bajas, media , alta)
+
+
+
+
+
 
 
 
