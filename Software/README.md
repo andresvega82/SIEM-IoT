@@ -178,7 +178,24 @@ El archivo de plugin para OSSIM es el archivo llamado SuricataIoT.cfg, este arch
 
 ![Imagen 38](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata/07.png)
 
+Con este archivo de plugin el sistema OSSIM reconoce los mensajes del protocolo syslog que tienen específicamente el formato determinado por la expresión regular ya mencionada, de tal forma que nos permite obtener información importante para determinar el tipo de tráfico malicioso, para ello OSSIM permite declarar variables tomadas de la expresión regular las cuales son las siguientes:
+•	src_ip, esta variable contiene la ip fuente del tráfico identificado como malicioso.
+•	src_port, esta variable contiene el puerto fuente del tráfico malicioso.
+•	dst_ip, esta variable contiene la ip de destino del tráfico malicioso.
+•	userdata_1, esta variable contiene el puerto destino del tráfico malicioso.
+•	userdata_2, esta variable contiene el número de identificación de la regla Suricata que se envía.
+•	priority, esta variable contiene el número de prioridad definida en la regla Suricata del trafico malicioso.
 
+#### Probar Suricata
+
+1.	Para probar Suricata corremos el comando en la terminal:
+suricata -c /etc/suricata/suricata.yaml -i eth0 --init-errors-fatal
+
+2.	Una vez comience a correr el mismo sistema empieza a examinar los paquetes de la red en busca que coincida con alguna regla.
+
+3.	De haber un paquete que coincida con alguna regla de Suricata y se genere una alerta Suricata, el sistema automáticamente lo enviará al servidor OSSIM y lo entenderá como un mensaje de alerta Suricata.
+
+![Imagen 45](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata/06.png)
 
 						INSTALACIÓN DE OPENVAS
 
