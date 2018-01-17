@@ -269,6 +269,8 @@ El orden de la ejecución de esta directiva queda de esta manera:
 
 ![Imagen 40](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata/08.png)
 
+Para el caso de esta respuesta activa, cabe resaltar que se debe tener permisos de administrador del dispositivo que se va a realizar la operación de actualización en el dispositivo centinela para que esta respuesta funcione.
+
 #### Directiva de Correlación No.2
 La segunda directiva trata de la denegación de servicio de un dispositivo que tenga un servicio web disponible, basado en el uso de un servicio de Nginx. El modo de operar es el mismo que el anterior, primero se tiene la vulnerabilidad (CVE-2013-2028, Exploit Specific) del dispositivo que dice que la versión del servicio Nginx es vulnerable a ataques de denegación de servicio, el segundo evento es la evidencia de tráfico malicioso que da a entender que se está explotando la vulnerabilidad ya mencionada mediante una petición al dispositivo con unos campos específicos. El SIEM como respuestas a estos eventos se genera la instalación de nginx.
 
@@ -280,9 +282,11 @@ El orden de la ejecución de esta directiva queda de esta manera:
 
 1.	El dispositivo centinela detecta la vulnerabilidad asociada con el código de CVE-2012-5964.
 2.	El dispositivo centinela detecta tráfico malicioso y lo envía a la plataforma de OSSIM.
-3.	La plataforma OSSIM detecta el ataque y genera una respuesta de contingencia al ataque, para este caso se actualiza la librería libupnp del dispositivo atacado.
+3.	La plataforma OSSIM detecta el ataque y genera una respuesta de contingencia al ataque, para este caso se actualiza la librería Nginx del dispositivo atacado.
 
 ![Imagen 41](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Openvas/01.png)
+
+Para el caso de esta respuesta activa, cabe resaltar que se debe tener permisos de administrador del dispositivo que se va a realizar la operación de actualización en el dispositivo centinela para que esta respuesta funcione.
 
 #### Directiva de Correlación No.3
 
@@ -312,3 +316,5 @@ Escribimos el siguiente comando: - aireplay-ng –deauth 0 –a < BSSID> wlan1
 4.	OSSIM detecta el ataque sobre el dispositivo y genera la respuesta activa, la cual es reiniciar el dispositivo IoT.
 
  ![Imagen 44](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/11.png)
+ 
+ Para el caso de esta respuesta activa, cabe resaltar que se debe tener permisos de administrador del dispositivo que se va a realizar la operación de actualización en el dispositivo centinela para que esta respuesta funcione.
