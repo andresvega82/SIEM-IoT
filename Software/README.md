@@ -33,12 +33,18 @@ Y kismet empieza a monitorer las redes WIFI.
 
 #CONFIGURACIÓN KISMET EN OSSIM
 
-Para cuando Kismet genere la alerta y la pueda enviar a OSSIM se debe tener corriendo el programa que está en el siguiente Github https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Kismet
+Para cuando Kismet genere la alerta generalmente la guarda en la siguiente ruta etc/kismet y la envia al OSSIM y para esto se debe tener corriendo el programa que está en el siguiente Github https://github.com/andresvega82/SIEM-IoT/tree/master/Software/Kismet
 en el archivo Syslogkismet.zip,  el cual envía el syslog al OSSIM para que este pueda recibir el evento. 
 En la siguiente imagen podemos ver en color amarillo el código donde se envía el syslog:  
   
  
 ![Imagen 4](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/4.png)
+
+Este programa lee los nuevos archivos que se van creando en la carpeta  ect/kismet y los envía al ossim.
+
+La forma en que llega el evento al OSSIM es la siguiente:
+
+imagen
 
 **Es necesario incluir las clases:
 
@@ -92,7 +98,7 @@ Cuando kismet recibe la alerta esta es reportada al OSSIM y el OSSIM por medio d
  
 ![Imagen 11](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/11.png)
 
-En nuestro caso lo que hace el reiniciar el equipo cerrando el punto de acceso del atacante. En el OSSIM se programa de la siguiente manera:
+En nuestro caso lo que hace el reiniciar el equipo cerrando el punto de acceso del atacante (se debe tener en cuenta que para este paso se deben tener permisos de administrador). En el OSSIM se programa de la siguiente manera:
 
 ![Imagen 12](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/12.png)
 
