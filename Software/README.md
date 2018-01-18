@@ -267,11 +267,18 @@ Una vez la herramienta OSSIM recibe los eventos generados por las herramientas O
 El orden de la ejecución de esta directiva queda de esta manera:
 
 1.	El dispositivo centinela detecta la vulnerabilidad asociada con el código de CVE-2012-5964.
+
+![Imagen 46](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata/09.png)
+
 2.	El dispositivo centinela detecta tráfico malicioso y lo envía a la plataforma de OSSIM.
 
 ![Imagen 39](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata/06.png)
 
-3.	La plataforma OSSIM detecta el ataque y genera una respuesta de contingencia al ataque, para este caso se actualiza la librería libupnp del dispositivo atacado.
+3.	Gracias a la configuración de OSSIM se genera la correlación cruzada de eventos, esta consiste en tener diferentes fuentes de eventos de seguridad reportando que permiten inferir ataques de seguridad, en el caso de esta directiva de genera un evento de Openvas y otro evento de Suricata, lo cual al tener eventos de estas dos fuentes se activa la directiva de correlación cruzada.Cabe resaltar que para que se active esta directiva de correlación los eventos que llegan deben ser del mismo tipo, tanto la vulnerabilidad específica y el ataque.
+
+![Imagen 47](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata/10.png)
+
+4.	La plataforma OSSIM detecta el ataque y genera una respuesta de contingencia al ataque, para este caso se actualiza la librería libupnp del dispositivo atacado.
 
 ![Imagen 40](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata/08.png)
 
@@ -287,8 +294,18 @@ Una vez la herramienta OSSIM recibe los eventos generados por las herramientas O
 El orden de la ejecución de esta directiva queda de esta manera:
 
 1.	El dispositivo centinela detecta la vulnerabilidad asociada con el código de CVE-2012-5964.
+
+![Imagen 48](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Openvas/04.png)
+
 2.	El dispositivo centinela detecta tráfico malicioso y lo envía a la plataforma de OSSIM.
-3.	La plataforma OSSIM detecta el ataque y genera una respuesta de contingencia al ataque, para este caso se actualiza la librería Nginx del dispositivo atacado.
+
+![Imagen 49](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Openvas/03.jpeg)
+
+3.	Gracias a la configuración de OSSIM se genera la correlación cruzada de eventos, esta consiste en tener diferentes fuentes de eventos de seguridad reportando que permiten inferir ataques de seguridad, en el caso de esta directiva de genera un evento de Openvas y otro evento de Suricata, lo cual al tener eventos de estas dos fuentes se activa la directiva de correlación cruzada.Cabe resaltar que para que se active esta directiva de correlación los eventos que llegan deben ser del mismo tipo, tanto la vulnerabilidad específica y el ataque.
+
+![Imagen 50](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Openvas/05.png)
+
+4.	La plataforma OSSIM detecta el ataque y genera una respuesta de contingencia al ataque, para este caso se actualiza la librería Nginx del dispositivo atacado.
 
 ![Imagen 41](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Openvas/01.png)
 
@@ -319,7 +336,19 @@ Escribimos el siguiente comando: - aireplay-ng –deauth 0 –a < BSSID> wlan1
 
  ![Imagen 43](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/10.png)
 
-4.	OSSIM detecta el ataque sobre el dispositivo y genera la respuesta activa, la cual es reiniciar el dispositivo IoT.
+4.	OSSIM detecta el ataque sobre el dispositivo gracias al evento enviado desde kismet y la vulnerabilidad hallada por OpenVas sobre el Protocolo WAP:
+    Las siguientes imágenes nuestran como llegan los eventos de esta regla de correlación al OSSIM
+
+![Imagen 51](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/14.png)
+Donde se muestra: el tipo de alerta que genero kismet, el punto de acceso del ataque y el tipo de ataque que se realizó.
+![Imagen 52](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/13.png)
+En este evento se muestra la vulnerabilidad la cual está explotando                                                     el ataque que se está generando.
+
+5.	Gracias a la configuración de OSSIM se genera la correlación cruzada de eventos, esta consiste en tener diferentes fuentes de eventos de seguridad reportando que permiten inferir ataques de seguridad, en el caso de esta directiva de genera un evento de Openvas y otro evento de Kismet, lo cual al tener eventos de estas dos fuentes se activa la directiva de correlación cruzada. Cabe resaltar que para que se active esta directiva de correlación los eventos que llegan deben ser del mismo tipo, tanto la vulnerabilidad específica y el ataque
+
+![Imagen 53](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/15.png)
+
+6.	OSSIM detecta el ataque sobre el dispositivo y genera la respuesta activa, la cual es reiniciar el dispositivo IoT.
 
  ![Imagen 44](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/11.png)
  
