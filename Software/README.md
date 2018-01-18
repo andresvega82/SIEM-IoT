@@ -44,7 +44,7 @@ Este programa lee los nuevos archivos que se van creando en la carpeta  ect/kism
 
 La forma en que llega el evento al OSSIM es la siguiente:
 
-![EventoKismet](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/eventokismet.png)
+![EventoKismet](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Kismet/enventoKismet.PNG)
 
 **Es necesario incluir las clases:
 
