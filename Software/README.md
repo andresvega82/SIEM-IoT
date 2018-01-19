@@ -1,4 +1,4 @@
-  INSTALACIÓN DE KISMET
+INSTALACIÓN DE KISMET
                                                   
  Para la instalar kismet en Linux solo es escribir los siguientes comandos en la terminal:
 -	Sudo apt-get update
@@ -250,6 +250,15 @@ La cual inicia con un indicador "OpenVas: " que noos indica que es un mensaje de
 **Codigo OpenVasOMP:**
 
 El codigo del OpenVasOMP cuenta con diversas clases java para realizar peticiones que el protocolo OMP nos permite para interactuar con OpenVas en este caso estamos utilizando consultas xml desde el codigo para extrar los resultados y ser enviados al OSSIM
+
+**Diagrama de clases OpenVasOMP**
+
+![Imagen 60](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Openvas/DiagramaDeClases.png)
+
+La clase principal es Client la encargada de realizar todo el proceso, lo primero que hace es utilizar un método de si misma “getResults” el cual crea una instancia de “GetResults” en donde se identifica el comando necesario para obtener los resultados directamente del OpenVas, cuando genera el comando este retorna un código xml el cual es usado para crear una nueva instancia de la clase “GetResultsResponse”.
+Una vez que tenemos esta instancia creada es retornada a Client y se procede a utilizar el método “getSysloginfo” quien se encarga de separar cada resultado identificado en el xml y a su vez utiliza el método “getSyslogAtributes” quien se encarga de obtener los atributos deseados de cada resultado respectivamente y se organiza en ArrayList para ser enviado al OSSIM. 
+Cuando Client ya obtiene el ArrayList de cada resultado con sus respectivos atributos, procede a crear un mensaje syslog por resultado del ArrayList obtenido con la clase “UdpSyslogMessageSender” y a través del método “sendMessage” el cual enviara el mensaje syslog a la dirección establecida desde la clase Client. 
+
 
 **Prueba OpenVas:**
 
