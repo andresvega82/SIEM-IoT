@@ -146,7 +146,17 @@ make libmagic-dev libjansson-dev
 	cp reference.config /etc/suricata
 	cp suricata.yaml /etc/suricata
 
-6.	Bajar reglas (por defecto se bajan por Oinkmaster):
+6.	Habilitar el envió de alertas al servicio syslog para enviar alertas a OSSIM, editar archivo “suricata.yaml”:
+
+![Imagen 60](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata/11.png) 
+
+7.	Incluir el envió de alertas de Suricata que tiene como prefijo “local5” por el servicio Syslog, incluir la siguiente línea en el archivo /etc/rsyslog.conf:
+*.local5@ip_servidor_OSSIM:puerto
+
+8.	Reiniciar servicio rsyslog:
+sudo service rsyslog restart
+
+8.	Bajar reglas (por defecto se bajan por Oinkmaster):
 	apt-get install oinkmaster
 	editar el archivo oinkmaster.conf: /etc/oinkmaster.conf
 	adicionar línea: 
@@ -199,7 +209,7 @@ suricata -c /etc/suricata/suricata.yaml -i eth0 --init-errors-fatal
 
 2.	Una vez comience a correr el mismo sistema empieza a examinar los paquetes de la red en busca que coincida con alguna regla.
 
-3.	De haber un paquete que coincida con alguna regla de Suricata y se genere una alerta Suricata, el sistema automáticamente lo enviará al servidor OSSIM y lo entenderá como un mensaje de alerta Suricata.
+3.	De haber un paquete que coincida con alguna regla de Suricata y se genere una alerta Suricata, el sistema automáticamente lo enviará al servidor OSSIM y lo entenderá como un mensaje de alerta Suricata. Lo anterior se logra gracias a que se configuro que toda alerta sea dirigida al servicio rsyslog y que se envíe al sistema OSSIM como un mensaje Syslog (Ver proceso de instalación de suricata en los pasos 6,7 y 8).
 
 ![Imagen 45](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Suricata/06.png)
 
