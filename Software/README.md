@@ -253,7 +253,7 @@ El codigo del OpenVasOMP cuenta con diversas clases java para realizar peticione
 
 **Diagrama de clases OpenVasOMP**
 
-![Imagen 70](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Openvas/DiagramaDeClases.png)
+![Imagen 70](https://github.com/andresvega82/SIEM-IoT/blob/master/Software/Openvas/DiagramaDeClases.PNG)
 
 La clase principal es Client la encargada de realizar todo el proceso, lo primero que hace es utilizar un método de si misma “getResults” el cual crea una instancia de “GetResults” en donde se identifica el comando necesario para obtener los resultados directamente del OpenVas, cuando genera el comando este retorna un código xml el cual es usado para crear una nueva instancia de la clase “GetResultsResponse”.
 Una vez que tenemos esta instancia creada es retornada a Client y se procede a utilizar el método “getSysloginfo” quien se encarga de separar cada resultado identificado en el xml y a su vez utiliza el método “getSyslogAtributes” quien se encarga de obtener los atributos deseados de cada resultado respectivamente y se organiza en ArrayList para ser enviado al OSSIM. 
